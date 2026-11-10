@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Talk to Snehil · Voice Bot</title>
+  <style>
+    :root { --bg:#0f1115; --card:#181b22; --text:#e9edf3; --muted:#9aa3b2; --accent:#5b8cff; --listen:#ff5b6e; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background:var(--bg); color:var(--text); }
+    main { max-width: 680px; margin: 0 auto; padding: 32px 20px 60px; text-align: center; }
+    h1 { font-size: 1.6rem; margin: 0 0 8px; }
+    .sub { color: var(--muted); margin: 0 0 28px; }
+    #mic { width: 120px; height: 120px; border-radius: 50%; border: none; font-size: 48px; cursor: pointer;
+           background: var(--accent); color: #fff; box-shadow: 0 8px 30px rgba(91,140,255,.35); transition: transform .15s; }
+    #mic:hover { transform: scale(1.05); }
+    #mic:disabled { opacity: .5; cursor: not-allowed; }
+    body[data-state="listening"] #mic { background: var(--listen); animation: pulse 1.2s infinite; }
+    body[data-state="thinking"]  #mic { animation: pulse .6s infinite; }
+    @keyframes pulse { 50% { transform: scale(1.08); } }
+    #status { min-height: 1.5em; margin: 16px 0; color: var(--muted); }
+    #chips { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: 8px 0 20px; }
+    #chips button, #stop, form button { background: var(--card); color: var(--text); border: 1px solid #2a2f3a;
+           border-radius: 999px; padding: 8px 14px; cursor: pointer; font-size: .9rem; }
+    #chips button:hover { border-color: var(--accent); }
+    form { display: flex; gap: 8px; margin: 0 0 16px; }
+    input { flex: 1; padding: 12px 14px; border-radius: 999px; border: 1px solid #2a2f3a; background: var(--card); color: var(--text); font-size: 1rem; }
+    #log { text-align: left; display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
+    .msg { padding: 12px 14px; border-radius: 14px; line-height: 1.45; max-width: 90%; }
+    .user { align-self: flex-end; background: var(--accent); color: #fff; }
+    .bot  { align-self: flex-start; background: var(--card); }
+  </style>
+</head>
+<body data-state="idle">
+  <main>
+    <h1>Hi, I'm Snehil's voice bot 👋</h1>
+    <p class="sub">Tap the mic and ask me anything an interviewer would, or tap a question below.</p>
+    <button id="mic" aria-label="Tap to speak">🎤</button>
+    <p id="status" aria-live="polite">Tap the mic to start</p>
+    <button id="stop" hidden>⏹ Stop speaking</button>
+    <div id="chips"></div>
+    <form id="textForm">
+      <input id="textInput" placeholder="…or type your question" autocomplete="off">
+      <button type="submit">Ask</button>
+    </form>
+    <section id="log"></section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

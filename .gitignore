@@ -1,0 +1,9 @@
+# secrets
+.env
+
+# dependencies & generated files
+node_modules/
+__pycache__/
+
+# Vercel's local link folder (created later)
+.vercel/
